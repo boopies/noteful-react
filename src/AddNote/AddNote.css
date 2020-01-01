@@ -1,0 +1,14 @@
+
+.AddNote {
+  color: #dedede;
+}
+
+.AddNote h2 {
+  margin-left: 16px;
+}
+
+.AddNote .buttons{
+  margin-top: 26px;
+  display: flex;
+  justify-content: space-between;
+}
