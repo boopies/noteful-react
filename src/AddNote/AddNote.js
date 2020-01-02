@@ -42,21 +42,23 @@ validateName(fieldValue) {
   if (name.length === 0) {
     return 'Name is required';
   } else if (name.length < 2) {
-    return 'Note name must be at least 2 characters long';
+    return <div id="NNErrorMessage">New Notes's name must be 3 characters long.</div>;
   }
 }
 
 validateContent(fieldValue) {
   const content = this.state.content.value.trim();
   if (content.length === 0) {
-    return 'There must be some content';
+    return <div id="NCErrorMessage">You must add some contents to the new note.</div>;
+} else if (content.length < 5){
+  return <div id="NCErrorMessage">The content must contain 5 or more characters.</div>;
 }
 }
 
 validateFolderId(fieldValue) {
   const folderID = this.state.folder.value.trim();
   if (folderID.length === 0) {
-    return 'A folder must be selected';
+    return <div id="FSErrorMessage">You must select a folder to add the new note to.</div>;
   }
 }
 
@@ -110,29 +112,36 @@ updateFolderId(folderID){
         <h2>Create a note</h2>
         <NotefulForm onSubmit={this.handleSubmit}>
           <div className='field'>
-            <label htmlFor='note-name-input'>
+            <label 
+            htmlFor='newNoteInput'>
               Name
             </label>
-            <input 
+            <input
             type='text' 
-            id='note-name-input' 
+            id='new-note-name-input' 
             name='noteName'
             placeholder="Note Name"
+            aria-label="Name of the new note" 
+            aria-required="true"
+            aria-describedby="NNErrorMessage"
             onChange={e => this.updateName(e.target.value)}/>
             {this.state.name.touched && (<ValidationError message={this.validateName()}/>)}
           </div>
           <div className='field'>
             <label htmlFor='note-content-input'>
-              Content
+             Content
             </label>
             <textarea
                 type='text'
-                cols="50"
-                rows="10"
-                id='note-content-input' 
+                cols='50'
+                rows='10'
+                id='new-note-contents' 
                 name='content'
                 placeholder='Contents of Note' 
                 autoComplete='off'
+                aria-label='Contents of the note.' 
+                aria-required='true'
+                aria-describedby='NCErrorMessage'
                 onChange={e => this.updateContent(e.target.value)}/>
                 {this.state.content.touched && (<ValidationError message={this.validateContent()}/>)}
           </div>
@@ -141,13 +150,19 @@ updateFolderId(folderID){
               Folder
             </label>
             <select 
-                id='note-folder-select' 
+                id='new-note-folder' 
                 name='folderID'
                 autoComplete='off'
+                aria-label='Folder selection to add note' 
+                aria-required='true'
+                aria-describedby='FSErrorMessage'
                 onChange={e => this.updateFolderId(e.target.value)} >
               <option value=''>...</option>
               {folders.map(folder =>
-                <option key={folder.id} value={folder.id}>
+                <option 
+                key={folder.id} 
+                value={folder.id}
+                aria-label='Folder names for selection' >
                   {folder.name}
                 </option>
               )}
@@ -156,21 +171,25 @@ updateFolderId(folderID){
           </div>
           <div className='buttons'>
           <button 
-              type="button" 
-              className="button"
+              type='button' 
+              className='button'
+              aria-label='Button to Cancel creating new note'
               onClick={() => this.goBack()}>
               Cancel
             </button>
 
             <button 
             type='submit'
-              className="button"
+              className='button'
+              aria-label='submit button to create the new note'
+              aria-describedby='buttonError'
               disabled={this.validateName()||
                 this.validateContent()||
                 this.validateFolderId()}>
-              Add note
+              Submit
             </button>
           </div>
+          <div id='buttonError'>submit button will activate when form is filled out correctuly.</div>
         </NotefulForm>
       </section>
     )

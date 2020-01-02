@@ -30,7 +30,7 @@ export default class AddFolder extends Component {
     if (name.length === 0) {
       return 'Name is required';
     } else if (name.length < 3) {
-      return 'Folder name must be at least 3 characters long';
+      return <div id="NFerrorMessage">New Folder's must be 3 characters long</div>;
     }
   }
 
@@ -76,8 +76,9 @@ goBack = () => {
         <h2>Create a folder</h2>
         <NotefulForm onSubmit={this.handleSubmit}>
           <div className='field'>
-            <label htmlFor='folder-name-input'>
-              Name
+            <label 
+            htmlFor='new-folder-name-input'>
+              Folder Name
             </label>
             <input 
             type='text' 
@@ -85,24 +86,31 @@ goBack = () => {
             name='foldername' 
             autoComplete='off'
             placeholder='Folder Title'
+            aria-label="Name of the new folder" 
+            aria-required="true"
+            aria-describedby="NFerrorMessage"
             onChange={e => this.updateName(e.target.value)}/>
              {this.state.name.touched && (<ValidationError message={this.validateName()}/>)} 
           </div>
           <div className='buttons'>
           <button 
                     type="button" 
-                    className="button"
+                    className="button"  
+                    aria-label="Button to Cancel creating new folder"
                     onClick={() => this.goBack()}>
                      Cancel
                  </button>
                  <button 
                     type="submit" 
                     className="button"
+                    aria-label='submit button to create the new note'
+                    aria-describedby='buttonError'
                     disabled={
                         this.validateName()}>
-                     Create Folder
+                     Submit
                  </button>
           </div>
+          <div id='buttonError'>submit button will activate when form is filled out correctly.</div>
         </NotefulForm>
       </section>
     )

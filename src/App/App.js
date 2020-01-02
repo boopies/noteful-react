@@ -144,17 +144,24 @@ class App extends React.Component {
     return (
       <ApiContext.Provider value={value}>
         <div className='App'>
-          <nav className='App__nav'>
+          <nav 
+            className='App__nav'
+            aria-label='List of Folders'>
             {this.renderNavRoutes()}
           </nav>
-          <header className='App__header'>
+          <header 
+            className='App__header'
+            aria-label='Name of Application'>
             <h1>
-              <Link to='/'>Noteful</Link>
+              <Link to='/' 
+              aria-label="Name of App">Noteful</Link>
               {' '}
               <FontAwesomeIcon icon='check-double' />
             </h1>
           </header>
-          <main className='App__main'>
+          <main 
+          className='App__main'
+          aria-label='Notes List and details.'>
             {this.renderMainRoutes()}
           </main>
         </div>
