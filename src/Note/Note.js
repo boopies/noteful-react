@@ -38,14 +38,14 @@ class Note extends React.Component {
   }
 
   render() {
-    const { name, id, modified } = this.props
-    const dateChange = format(new Date (modified), 'do MMMM YYYY');
-    const timeChange = format(new Date (modified), 'HH:mm');
+    const { title, id, date} = this.props
+    const dateChange = format(new Date (date), 'do MMMM YYYY');
+    const timeChange = format(new Date (date), 'HH:mm');
     return (
       <div className='Note'>
         <h2 className='Note__title'>
           <Link to={`/note/${id}`}>
-            {name}
+            {title}
           </Link>
         </h2>
         <button
@@ -62,7 +62,7 @@ class Note extends React.Component {
             Modified
             {' '}
             <span className='Date'>
-            Modified on {dateChange} at {timeChange}
+            {dateChange} at {timeChange}
             </span>
           </div>
         </div>

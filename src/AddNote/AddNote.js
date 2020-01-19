@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import NotefulForm from '../NotefulForm/NotefulForm'
 import ApiContext from '../ApiContext'
 import config from '../config'
-import {uniqueID} from '../notes-helpers'
 import './AddNote.css'
 import ValidationError from '../ValidationError/ValidationError'
 import PropTypes from 'prop-types';
@@ -78,10 +77,9 @@ updateFolderId(folderID){
   handleSubmit = e => {
     e.preventDefault()
     const newNote = {
-        id: uniqueID(),
-        name: e.target['noteName'].value,
+        title: e.target['noteName'].value,
         modified: new Date(),
-        folderId: e.target['folderID'].value,
+        folder_id: e.target['folderID'].value,
         content: e.target['content'].value,
     }
     fetch(`${config.API_ENDPOINT}/notes`, {
@@ -163,7 +161,7 @@ updateFolderId(folderID){
                 key={folder.id} 
                 value={folder.id}
                 aria-label='Folder names for selection' >
-                  {folder.name}
+                  {folder.title}
                 </option>
               )}
             </select>

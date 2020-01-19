@@ -20,13 +20,14 @@ class NotePageMain extends React.Component {
   render() {
     const { notes=[] } = this.context
     const { noteId } = this.props.match.params
-    const note = findNote(notes, noteId) || { content: '' }
+    const note = findNote(notes, parseInt(noteId)) || { content: '' }
+
     return (
       <section className='NotePageMain'>
         <Note
           id={note.id}
-          name={note.name}
-          modified={note.modified}
+          title={note.title}
+          date_modified={note.date_modified}
           onDeleteNote={this.handleDeleteNote}
         />
         <div className='NotePageMain__content'>
@@ -38,7 +39,6 @@ class NotePageMain extends React.Component {
     )
   }
 }
-
 NotePageMain.propTypes = {
   match: PropTypes.object
 }

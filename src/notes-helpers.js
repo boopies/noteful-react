@@ -1,4 +1,3 @@
-
 export const findFolder = (folders=[], folderId) =>
   folders.find(folder => folder.id === folderId)
 
@@ -8,19 +7,8 @@ export const findNote = (notes=[], noteId) =>
 export const getNotesForFolder = (notes=[], folderId) => (
   (!folderId)
     ? notes
-    : notes.filter(note => note.folderId === folderId)
+    : notes.filter(note => note.folder_id === folderId)
 )
 
 export const countNotesForFolder = (notes=[], folderId) =>
-  notes.filter(note => note.folderId === folderId).length
-
-export const uniqueID = () => {
-  function chr4(){
-    return Math.random().toString(16).slice(-4);
-  }
-    return chr4() + chr4() +
-      '-' + chr4() +
-      '-' + chr4() +
-      '-' + chr4() +
-      '-' + chr4() + chr4() + chr4();
-  }
+  notes.filter(note => note.folder_id === folderId).length

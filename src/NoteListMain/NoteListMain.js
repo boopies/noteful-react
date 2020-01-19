@@ -19,19 +19,19 @@ class NoteListMain extends React.Component {
   render() {
     const { folderId } = this.props.match.params
     const { notes=[] } = this.context
-    const notesForFolder = getNotesForFolder(notes, folderId)
+    const notesForFolder = getNotesForFolder(notes, parseInt(folderId))
     return (
       <section className='NoteListMain'>
         <ul>
-          {notesForFolder.map(note =>
-            <li key={note.id}>
-              <Note
-                id={note.id}
-                name={note.name}
-                modified={note.modified}
-              />
-            </li>
-          )}
+        {notesForFolder.map(note =>
+          <li key={note.id}>
+            <Note
+              id={note.id}
+              title={note.title}
+              date={note.date}
+            />
+          </li>
+        )}
         </ul>
         <div className='NoteListMain__button-container'>
           <CircleButton

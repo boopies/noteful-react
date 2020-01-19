@@ -4,14 +4,13 @@ import ApiContext from '../ApiContext'
 import config from '../config'
 import PropTypes from 'prop-types';
 import ValidationError from '../ValidationError/ValidationError'
-import { uniqueID } from '../notes-helpers'
 import './AddFolder.css'
 
 export default class AddFolder extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        name: {
+        title: {
           value: '',
           touched:false
         }
@@ -26,16 +25,16 @@ export default class AddFolder extends Component {
   static contextType = ApiContext;
 
   validateName(fieldValue) {
-    const name = this.state.name.value.trim();
+    const name = this.state.title.value.trim();
     if (name.length === 0) {
-      return 'Name is required';
+      return 'Title is required';
     } else if (name.length < 3) {
-      return <div id="NFerrorMessage">New Folder's must be 3 characters long</div>;
+      return <div id="NFerrorMessage">New Folders must be 3 characters long</div>;
     }
   }
 
   updateName(title){
-    this.setState({name: {value: title, touched: true}});
+    this.setState({title: {value: title, touched: true}});
   }
   
 
@@ -46,8 +45,7 @@ goBack = () => {
   handleSubmit = e => {
     e.preventDefault()
     const folder = {
-      id: uniqueID(),
-      name: e.target['foldername'].value,
+      title: e.target['foldername'].value,
   }
     fetch(`${config.API_ENDPOINT}/folders`, {
       method: 'POST',
@@ -90,7 +88,7 @@ goBack = () => {
             aria-required="true"
             aria-describedby="NFerrorMessage"
             onChange={e => this.updateName(e.target.value)}/>
-             {this.state.name.touched && (<ValidationError message={this.validateName()}/>)} 
+             {this.state.title.touched && (<ValidationError message={this.validateName()}/>)} 
           </div>
           <div className='buttons'>
           <button 
@@ -118,5 +116,5 @@ goBack = () => {
 }
 
 AddFolder.propType = {
-  name: PropTypes.string.isRequired
+  title: PropTypes.string.isRequired
 };

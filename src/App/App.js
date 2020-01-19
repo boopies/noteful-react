@@ -13,23 +13,15 @@ import ErrorBoundary from '../ErrorBoundary/ErrorBoundary'
 import './App.css'
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      hasError: false
-    };
-  }
-  
   state = {
     notes: [],
     folders: [],
   };
 
   componentDidMount() {
-    const apiCall1 = fetch (`${config.API_ENDPOINT}/notes`)
-    const apiCall2 = fetch (`${config.API_ENDPOINT}/folders`)
     Promise.all([
-      apiCall1, apiCall2
+      fetch (`${config.API_ENDPOINT}/notes`),
+      fetch (`${config.API_ENDPOINT}/folders`)
     ])
       .then(([notesRes, foldersRes]) => {
         if (!notesRes.ok)
