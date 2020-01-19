@@ -131,6 +131,7 @@ class App extends React.Component {
       addFolder: this.handleAddFolder,
       addNote: this.handleAddNote,
       deleteNote: this.handleDeleteNote,
+      deleteFolder: this.handleDeleteFolder,
     }
 
     return (

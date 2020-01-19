@@ -78,7 +78,7 @@ updateFolderId(folderID){
     e.preventDefault()
     const newNote = {
         title: e.target['noteName'].value,
-        modified: new Date(),
+        date: new Date(),
         folder_id: e.target['folderID'].value,
         content: e.target['content'].value,
     }
@@ -96,7 +96,7 @@ updateFolderId(folderID){
       })
       .then(note => {
         this.context.addNote(note)
-        this.props.history.push(`/folder/${note.folderId}`)
+        this.props.history.push(`/`)
       })
       .catch(error => {
         console.error({ error })
